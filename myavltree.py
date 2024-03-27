@@ -76,7 +76,7 @@ def insertR(tree, newNode, currentNode):
                 return left
 def update_bf_ancestors(tree, node):
     while node is not None:
-        calculate_bf(node)
+        calculateBalance(node)
         if node.balanceFactor < -1 or node.balanceFactor > 1:
             balance(tree, node)
         node = node.parent
@@ -239,17 +239,17 @@ def balance(tree, node):
     if node is not None:
         balance(tree, node.leftnode)
         balance(tree, node.rightnode)
-        calculate_bf(node)
+        calculateBalance(node)
 
         if node.balanceFactor < -1:
-            calculate_bf(node.rightnode)
+            calculateBalance(node.rightnode)
             if node.rightnode.balanceFactor == 1:
                 rotateRight(tree, node.rightnode)
                 rotateLeft(tree, node)
             else:
                 rotateLeft(tree, node)
         elif node.balanceFactor > 1:
-            calculate_bf(node.leftnode)
+            calculateBalance(node.leftnode)
             if node.leftnode.balanceFactor == -1:
                 rotateLeft(tree, node.leftnode)
                 rotateRight(tree, node)
@@ -270,7 +270,7 @@ def reBalance(tree,node):
             rotateLeft(tree,node)
     elif node.balance_factor > 1:
         
-        calculate_bf(node.leftnode)
+        calculateBalance(node.leftnode)
         if node.leftnode.balance_factor == -1:
             rotateLeft(tree,node.leftnode)
             rotateRight(tree, node)
@@ -280,7 +280,7 @@ def reBalance(tree,node):
     reBalance(tree,node.parent)
 
 
-def calculate_bf(node):
+def calculateBalance(node):
     update_height(node)
     if node.leftnode is not None and node.rightnode is not None:
         node.balanceFactor = node.leftnode.height - node.rightnode.height
