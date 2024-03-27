@@ -257,29 +257,6 @@ def balance(tree, node):
                 rotateRight(tree, node)
     return tree
 
-def reBalance(tree,node):
-    
-    if node.parent is None:
-        return
-    
-    if node.balance_factor < -1:
-        if node.rightnode.balance_factor == 1:
-            rotateRight(tree,node.rightnode)
-            rotateLeft(tree, node)
-        else:
-            rotateLeft(tree,node)
-    elif node.balance_factor > 1:
-        
-        calculate_bf(node.leftnode)
-        if node.leftnode.balance_factor == -1:
-            rotateLeft(tree,node.leftnode)
-            rotateRight(tree, node)
-        else:
-            rotateRight(tree,node)
-            
-    reBalance(tree,node.parent)
-
-
 def calculate_bf(node):
     update_height(node)
     if node.leftnode is not None and node.rightnode is not None:
@@ -301,5 +278,3 @@ def update_height(node):
             node.height = 1 + node.rightnode.height
         else:
             node.height = 0
-            
-#Martes 21:55 - Ultima prueba, funciona todo
