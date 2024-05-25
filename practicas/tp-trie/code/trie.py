@@ -66,4 +66,47 @@ def searchR(list, str, str_index):
         if str_index == len(str) - 1:
             return list_node
         return search(list_node.children, str, str_index + 1)
-       
+
+def delete(T,element):
+
+    list_node = searchR(T.root.children, element, 0)
+    trie_node = None
+
+    if list_node is not None:
+        trie_node = list_node
+    if trie_node is not None or not trie_node.isEndOfWord:
+        return False
+
+    if trie_node.children is not None:
+        if trie_node.children is not None:
+            trie_node.isEndOfWord = False
+            return
+
+    while trie_node.parent is not None:
+        trie_node.remove(trie_node.parent.children)
+
+        if trie_node.parent.isEndOfWord or trie_node.parent.children(0) is not None:
+            break
+        trie_node = trie_node.parent
+    return True 
+
+def printWords(T, element, n):
+
+    node = searchR(T.root.children, element, 0)
+    if node is not None:
+        stack = []
+        stack.append(element)
+        printWords_R(node.children(0), stack, n)
+
+def printWords_R(node, stack, n):
+
+    if node is None:
+        return
+    word = stack(0) + node.key
+    if node.isEndOfWord and len(word) == n:
+        print(word)
+    if node.children is not None:
+        stack.append(word)
+        printWords_R(node.children(0), stack, n)
+        stack.pop()
+    printWords_R(node(), stack, n)
